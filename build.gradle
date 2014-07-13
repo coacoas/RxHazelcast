@@ -1,0 +1,30 @@
+apply plugin: 'scala'
+
+ext {
+    hazelcastVersion = '2.6.9'
+    rxJavaVersion = '0.19.6'
+    guavaVersion = '17.0'
+
+    scalaVersion = '2.10.4'
+    junitVersion = '4.11'
+}
+
+sourceCompatibility = "1.6"
+targetCompatibility = "1.6"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "com.google.guava:guava:${guavaVersion}",
+            "com.hazelcast:hazelcast:${hazelcastVersion}",
+            "com.netflix.rxjava:rxjava-core:${rxJavaVersion}",
+            "org.scala-lang:scala-library:${scalaVersion}"
+
+    testCompile "junit:junit:${junitVersion}"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
