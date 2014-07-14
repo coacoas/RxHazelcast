@@ -16,7 +16,7 @@ public class HazelcastObservable {
         return Observable.create(new Observable.OnSubscribe<T>() {
             @Override
             public void call(final Subscriber<? super T> subscriber) {
-                final MessageListener<T> listener = new ObservableMessageListener<T>(subscriber);
+                final MessageListener<T> listener = new ObservableMessageListener<>(subscriber);
                 topic.addMessageListener(listener);
                 subscriber.add(new Subscription() {
                     private boolean completed = false;

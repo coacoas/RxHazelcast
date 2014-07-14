@@ -25,12 +25,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.hamcrest.CoreMatchers.is;
 
-/**
- * Created by bcarlson on 7/12/14.
- */
 public class HazelcastObservableTest {
     private final Executor service = Executors.newCachedThreadPool(new ThreadFactory() {
-        private AtomicInteger count = new AtomicInteger(0);
+        private final AtomicInteger count = new AtomicInteger(0);
 
         @Override
         public Thread newThread(Runnable runnable) {
@@ -67,7 +64,7 @@ public class HazelcastObservableTest {
         final ArrayList<String> responses = new ArrayList<>();
         String topicName = UUID.randomUUID().toString();
         ITopic<String> topic = instance.getTopic(topicName);
-        Subscription s = HazelcastObservable.<String>fromTopic(topic).
+        Subscription s = HazelcastObservable.fromTopic(topic).
                 map(new UpperCase()).
                 subscribe(new AddToList(responses));
         System.out.println("Sending messages");
@@ -87,7 +84,7 @@ public class HazelcastObservableTest {
         String topicName = UUID.randomUUID().toString();
         ITopic<String> topic = instance.getTopic(topicName);
 
-        Subscription s = HazelcastObservable.<String>fromTopic(topic).
+        Subscription s = HazelcastObservable.fromTopic(topic).
                 take(1).
                 observeOn(Schedulers.from(service)).
                 map(new UpperCase()).
@@ -123,7 +120,7 @@ public class HazelcastObservableTest {
 
         String topicName = UUID.randomUUID().toString();
         ITopic<String> topic = first.getTopic(topicName);
-        Subscription s = HazelcastObservable.<String>fromTopic(topic).
+        Subscription s = HazelcastObservable.fromTopic(topic).
                 take(3).
                 observeOn(Schedulers.from(service)).
                 map(new UpperCase()).
